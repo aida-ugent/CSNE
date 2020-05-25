@@ -89,12 +89,13 @@ In order to reproduce the CSNE results in the paper the following steps are nece
 2. Install CSNE dependencies as shown in the [Installation](#Installation) section above
 3. Download the datasets: 
 
-    * [Slashdot(a)](https://snap.stanford.edu/data/soc-sign-Slashdot081106.html), 
-[Slashdot(b)](https://snap.stanford.edu/data/soc-sign-Slashdot090216.html), 
-[Epinions](https://snap.stanford.edu/data/soc-sign-epinions.html), 
-[Wiki-rfa](https://snap.stanford.edu/data/wiki-RfA.html),
-[Bitcoin-alpha](https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html),
-[Bitcoin-otc](https://snap.stanford.edu/data/soc-sign-bitcoin-otc.html),
+    * [Slashdot(a)](https://snap.stanford.edu/data/soc-sign-Slashdot081106.html)
+    * [Slashdot(b)](https://snap.stanford.edu/data/soc-sign-Slashdot090216.html)
+    * [Epinions](https://snap.stanford.edu/data/soc-sign-epinions.html)
+    * [Wiki-rfa](https://snap.stanford.edu/data/wiki-RfA.html)
+    * [Bitcoin-alpha](https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html)
+    * [Bitcoin-otc](https://snap.stanford.edu/data/soc-sign-bitcoin-otc.html)
+
 4. Modify the `.ini` configuration files provided to ensure that the *dataset* paths and *method* paths
 match the directories where they have been stored/installed on your machine. Then run the evaluation as:
 
