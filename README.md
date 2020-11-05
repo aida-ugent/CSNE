@@ -108,3 +108,26 @@ match the directories where they have been stored/installed on your machine. The
 [L-SNE/N-SNE](https://github.com/wzsong17/Signed-Network-Embedding). These methods do not accept command-line 
 arguments out-of-the-box, so in order to evaluate them using the conf files provided, appropriate mains must 
 be created for each method. These main files must take the same parameters shown in the conf files for each method.
+
+## Citation ##
+
+If you have used CSNE in your research, please cite our 
+[CIKM2020 paper](https://dl.acm.org/doi/10.1145/3340531.3411959) (video presentation also available in the link):
+
+```
+@inproceedings{Mara2020csne,
+    author = {Mara, Alexandru and Mashayekhi, Yoosof and Lijffijt, Jefrey and de Bie, Tijl},
+    title = {CSNE: Conditional Signed Network Embedding},
+    year = {2020},
+    isbn = {9781450368599},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3340531.3411959},
+    doi = {10.1145/3340531.3411959},
+    booktitle = {Proceedings of the 29th ACM International Conference on Information & Knowledge Management},
+    pages = {1105–1114},
+    numpages = {10},
+    location = {Virtual Event, Ireland},
+    series = {CIKM '20}
+}
+```
