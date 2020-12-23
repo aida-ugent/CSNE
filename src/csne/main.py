@@ -9,7 +9,7 @@ import time
 import argparse
 import numpy as np
 import networkx as nx
-from maxent_comb import MaxentCombined
+from .maxent_comb import MaxentCombined
 from csne import CSNE
 from scipy.sparse import *
 
@@ -91,7 +91,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def main(args):
+def main_helper(args):
     """ Main of CSNE. """
 
     # Load edgelist
@@ -158,6 +158,10 @@ def main(args):
     print('Prediction time: {}'.format(time.time()-start))
 
 
-if __name__ == "__main__":
+def main():
     args = parse_args()
-    main(args)
+    main_helper(args)
+
+
+if __name__ == "__main__":
+    main()

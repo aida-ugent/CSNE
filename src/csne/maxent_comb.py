@@ -7,7 +7,7 @@
 from __future__ import division
 from __future__ import print_function
 import numpy as np
-from weighted_lin_constr import *
+from csne.weighted_lin_constr import *
 from tqdm import tqdm
 from sklearn.externals.joblib import Parallel, delayed
 from collections import defaultdict
