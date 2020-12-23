@@ -9,7 +9,7 @@ import time
 import argparse
 import numpy as np
 import networkx as nx
-from .maxent_comb import MaxentCombined
+from csne.maxent_comb import MaxentCombined
 from csne import CSNE
 from scipy.sparse import *
 
