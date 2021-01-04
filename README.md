@@ -9,24 +9,28 @@ manuscript. The repository is maintained by Alexandru Mara (alexandru.mara(at)ug
 
 ## Installation
 
-The method consists of 4 Python files and does not require installation. Simply ensure that the following common 
-libraries are available on you system:
+Install directly from GitHub with:
 
-```text
-networkx==2.2
-numpy==1.15.1
-scikit-learn==0.19.0
-scipy==1.2.3
-sklearn
-tqdm
-pandas
+```shell
+$ pip install git+https://github.com/aida-ugent/CSNE.git
 ```
+
+Install in development mode with:
+
+```shell
+$ git clone https://github.com/aida-ugent/CSNE
+$ cd CSNE
+$ pip install -e .
+```
+
+Where `-e` means "editable" mode.
 
 ## Usage
 
-### Running CSNE:
-A `main.py` file is provided which parses the command line arguments and runs the model. The file takes the following
-parameters:
+### Running CSNE from the Comand Line
+The `csne` command line tool is automatically installed. It parses the command line arguments and runs the model
+with takes the following parameters:
+
 ```text
   -h, --help            show this help message and exit
   --inputgraph [INPUTGRAPH]
@@ -77,17 +81,16 @@ these can be provided in the tr_e or te_e parameters. The expected format of the
 Examples of running CSNE:
 ```bash
 # Example 1: Run prior only and compute predictions for edge pairs
-python main.py --inputgraph ./graph.edgelist --tr_e ./tr.edgelist --te_e ./te.edgelist --tr_pred './tr.out' --te_pred './te.out' --use_csne 0
+csne --inputgraph ./graph.edgelist --tr_e ./tr.edgelist --te_e ./te.edgelist --tr_pred './tr.out' --te_pred './te.out' --use_csne 0
 # Example 2: Run full CSNE and store embeddings
-python main.py --inputgraph ./graph.edgelist --output './embeddings.txt'
+csne --inputgraph ./graph.edgelist --output './embeddings.txt'
 ```
 
 ## Reproducing Experiments
 In order to reproduce the CSNE results in the paper the following steps are necessary: 
 
-1. Download and install the EvalNE library as instructed [here](https://github.com/Dru-Mara/EvalNE)
-2. Install CSNE dependencies as shown in the [Installation](#Installation) section above
-3. Download the datasets: 
+1. Install CSNE dependencies as shown in the [Installation](#Installation) section above
+2. Download the datasets: 
 
     * [Slashdot(a)](https://snap.stanford.edu/data/soc-sign-Slashdot081106.html)
     * [Slashdot(b)](https://snap.stanford.edu/data/soc-sign-Slashdot090216.html)
@@ -96,7 +99,7 @@ In order to reproduce the CSNE results in the paper the following steps are nece
     * [Bitcoin-alpha](https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html)
     * [Bitcoin-otc](https://snap.stanford.edu/data/soc-sign-bitcoin-otc.html)
 
-4. Modify the `.ini` configuration files provided to ensure that the *dataset* paths and *method* paths
+3. Modify the `.ini` configuration files provided to ensure that the *dataset* paths and *method* paths
 match the directories where they have been stored/installed on your machine. Then run the evaluation as:
 
     ```bash
