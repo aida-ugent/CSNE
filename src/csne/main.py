@@ -127,7 +127,7 @@ def main_helper(args):
         tr_A[tr_A == -1] = 0
         tr_A.eliminate_zeros()
         opt_params = {'name': 'adam', 'lr': args.learning_rate, 'max_iter': args.epochs}
-        params = {'d': args.dimension, 'k': args.k, 's1': args.s1, 's2': args.s2, 'optimizer': opt_params, 'epsilon': 0.0}
+        params = {'d': args.dimension, 'k': 100, 's1': args.s1, 's2': args.s2, 'optimizer': opt_params, 'epsilon': 0.0}
         csne = CSNE(tr_A, params, mc, mask)
         csne.fit()
         predict_obj = csne
