@@ -10,7 +10,7 @@ import argparse
 import numpy as np
 import networkx as nx
 from csne.maxent_comb import MaxentCombined
-from csne import CSNE
+from csne.csne import CSNE
 from scipy.sparse import *
 
 
