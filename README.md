@@ -89,8 +89,9 @@ csne --inputgraph ./graph.edgelist --output './embeddings.txt'
 ## Reproducing Experiments
 In order to reproduce the CSNE results in the paper the following steps are necessary: 
 
-1. Install CSNE dependencies as shown in the [Installation](#Installation) section above
-2. Download the datasets: 
+1. Download and install the EvalNE library as instructed [here](https://github.com/Dru-Mara/EvalNE)
+2. Install CSNE as shown in the [Installation](#Installation) section above (preferably in its own virtualenv)
+3. Download the datasets: 
 
     * [Slashdot(a)](https://snap.stanford.edu/data/soc-sign-Slashdot081106.html)
     * [Slashdot(b)](https://snap.stanford.edu/data/soc-sign-Slashdot090216.html)
@@ -99,7 +100,7 @@ In order to reproduce the CSNE results in the paper the following steps are nece
     * [Bitcoin-alpha](https://snap.stanford.edu/data/soc-sign-bitcoin-alpha.html)
     * [Bitcoin-otc](https://snap.stanford.edu/data/soc-sign-bitcoin-otc.html)
 
-3. Modify the `.ini` configuration files provided to ensure that the *dataset* paths and *method* paths
+4. Modify the `.ini` configuration files provided to ensure that the *dataset* paths and *method* paths
 match the directories where they have been stored/installed on your machine. Then run the evaluation as:
 
     ```bash

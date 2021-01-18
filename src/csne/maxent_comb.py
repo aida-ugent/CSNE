@@ -9,7 +9,6 @@ from __future__ import print_function
 import numpy as np
 from csne.weighted_lin_constr import *
 from tqdm import tqdm
-from sklearn.externals.joblib import Parallel, delayed
 from collections import defaultdict
 import time
 
