@@ -154,8 +154,6 @@ class MaxentCombined:
         """
         Computes teh MaxEnt prior. Uses hessian information o speed up convergence.
         """
-
-        print("Starting optimization...")
         alpha = alpha_init
 
         # Initialize P
@@ -170,7 +168,7 @@ class MaxentCombined:
         c_idx = self.__n + c_idx
 
         # Iterate
-        for i in trange(max_iter, desc='Iterations'):
+        for i in trange(max_iter, desc='Fitting prior'):
 
             # Reset alpha every few iterations
             if i % 10 == 0:
