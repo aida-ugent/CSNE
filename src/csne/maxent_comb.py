@@ -190,11 +190,10 @@ class MaxentCombined:
                 v = x_test[r_idx] + x_test[c_idx]
                 for fi in range(self.__nfuncs):
                     v += self.__F[fi].maskdF * x_test[self.__2n + fi]
-                v = np.exp(v)
-                obj_test = np.sum(np.log(1 + v)) - np.dot(x_test, self.__cs)
+                obj_test = np.sum(np.logaddexp(0, v)) - np.dot(x_test, self.__cs)
                 if obj_test <= obj - (alpha * imp):
                     x = x_test
-                    aux = v
+                    aux = np.exp(v)
                     obj = obj_test
                     break
                 alpha = alpha / 2.0
