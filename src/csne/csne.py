@@ -61,8 +61,7 @@ class CSNE:
         self.__num_pos_sample_list = []
         self.__prior_ratio = []
 
-        print('start neighborhood sampling')
-        for i in tqdm(range(self.__n)):
+        for i in trange(self.__n, desc='Neighborhood sampling'):
             if samplemask is None:
                 samples = []
                 pos_ids = self.__adj_list[i]
@@ -93,8 +92,6 @@ class CSNE:
                 self.__edge_masks.append(aux > 0.5)
                 P = self.__prior.get_row_probability(i, sample_ids)
                 self.__prior_ratio.append((1-P)/P)
-
-        print('finish neighborhood sampling')
 
     def _compute_squared_dist(self, X, target_id, sample_ids):
         return np.sum((X[target_id, :] - X[sample_ids, :])**2, axis=1).T
