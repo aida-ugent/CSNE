@@ -200,14 +200,14 @@ class MaxentCombined:
             # Show the norms of the gradient and objective
             if verbose:
                 #print(np.linalg.norm(grad))
-                tqdm.write("[iter {}] Gradient norm: {}".format(i, np.linalg.norm(grad)))
-                tqdm.write("[iter {}] Objective: {}".format(i, obj))
+                tqdm.write("[iter {}] Gradient norm: {:.2f}".format(i, np.linalg.norm(grad)))
+                tqdm.write("[iter {}] Objective: {:.2f}".format(i, obj))
 
             if np.linalg.norm(grad, np.inf) < tol:
                 break
 
-        tqdm.write("Gradient norm: {}".format(np.linalg.norm(grad)))
-        tqdm.write("Objective: {}".format(obj))
+        tqdm.write("Final gradient norm: {:.2f}".format(np.linalg.norm(grad)))
+        tqdm.write("Final objective: {:.2f}".format(obj))
         return x
 
     def _get_sums_sp(self, P, f_pow=False):
