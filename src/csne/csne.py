@@ -23,7 +23,7 @@ import pandas as pd
 import scipy.sparse as sparse
 from scipy.optimize import minimize
 from sklearn.metrics import roc_auc_score
-from tqdm import tqdm
+from tqdm import tqdm, trange
 import time
 
 
@@ -137,10 +137,9 @@ class CSNE:
 
     def optimizer_adam(self, X, num_epochs=100, alpha=0.001, beta_1=0.9,
                        beta_2=0.9999, eps=1e-8, verbose=True, epsilon=0.01):
-        print("Starting CSNE training...")
         m_prev = np.zeros_like(X)
         v_prev = np.zeros_like(X)
-        for epoch in range(num_epochs):
+        for epoch in trange(num_epochs, desc='Training CSNE'):
             grad = -self._eval_grad(X, epsilon=epsilon)
 
             # Adam optimizer
@@ -157,11 +156,11 @@ class CSNE:
             if verbose:
                 if epoch % 1 == 0:
                     grad_norm = np.sum(grad**2)**.5
-                    print('Epoch: {:d}, gradient norm: {:.4f}'.format(epoch, grad_norm))
+                    tqdm.write('Epoch: {:d}, gradient norm: {:.4f}'.format(epoch, grad_norm))
                 if epoch == num_epochs-1:
                     grad_norm = np.sum(grad**2)**.5
                     obj = self._eval_obj(X)
-                    print('Epoch: {:d}, obj: {:.4f}, gradient norm: {:.4f}'.format(epoch, -obj, grad_norm))
+                    tqdm.write('Epoch: {:d}, obj: {:.4f}, gradient norm: {:.4f}'.format(epoch, -obj, grad_norm))
         return X
 
     def fit(self, verbose=True, X0=None):

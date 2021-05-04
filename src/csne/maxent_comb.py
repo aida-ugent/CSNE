@@ -8,7 +8,7 @@ from __future__ import division
 from __future__ import print_function
 import numpy as np
 from csne.weighted_lin_constr import *
-from tqdm import tqdm
+from tqdm import trange, tqdm
 from collections import defaultdict
 import time
 
@@ -170,7 +170,7 @@ class MaxentCombined:
         c_idx = self.__n + c_idx
 
         # Iterate
-        for i in tqdm(range(max_iter)):
+        for i in trange(max_iter, desc='Iterations'):
 
             # Reset alpha every few iterations
             if i % 10 == 0:
@@ -202,14 +202,14 @@ class MaxentCombined:
             # Show the norms of the gradient and objective
             if verbose:
                 #print(np.linalg.norm(grad))
-                print("\nGradient norm: {} in iter {}".format(np.linalg.norm(grad), i))
-                print("Objective: {} in iter {}".format(obj, i))
+                tqdm.write("[iter {}] Gradient norm: {}".format(i, np.linalg.norm(grad)))
+                tqdm.write("[iter {}] Objective: {}".format(i, obj))
 
             if np.linalg.norm(grad, np.inf) < tol:
                 break
 
-        print("Gradient norm: {}".format(np.linalg.norm(grad)))
-        print("Objective: {}".format(obj))
+        tqdm.write("Gradient norm: {}".format(np.linalg.norm(grad)))
+        tqdm.write("Objective: {}".format(obj))
         return x
 
     def _get_sums_sp(self, P, f_pow=False):
