@@ -122,7 +122,7 @@ be created for each method. These main files must take the same parameters shown
 If you have used CSNE in your research, please cite our 
 [CIKM2020 paper](https://dl.acm.org/doi/10.1145/3340531.3411959) (video presentation also available in the link):
 
-```
+```bibtex
 @inproceedings{Mara2020csne,
     author = {Mara, Alexandru and Mashayekhi, Yoosof and Lijffijt, Jefrey and de Bie, Tijl},
     title = {CSNE: Conditional Signed Network Embedding},
