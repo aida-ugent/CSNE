@@ -25,6 +25,8 @@ $ pip install -e .
 
 Where `-e` means "editable" mode.
 
+**Note:** CSNE code has been extensively tested and is stable under Python 2.7.x, thus this is the recommendend environment. The code can be also executed under Python3.6, however, preliminary experiments show inconsistent behaviour.
+
 ## Usage
 
 ### Running CSNE from the Comand Line
@@ -112,6 +114,8 @@ match the directories where they have been stored/installed on your machine. The
 [L-SNE/N-SNE](https://github.com/wzsong17/Signed-Network-Embedding). These methods do not accept command-line 
 arguments out-of-the-box, so in order to evaluate them using the conf files provided, appropriate mains must 
 be created for each method. These main files must take the same parameters shown in the conf files for each method.
+
+**Note2:** To ensure that the correct results are obtained, we recommend that both CSNE and EvalNE are installed in virtual environments using Python 2.7.x.
 
 ## Citation ##
 

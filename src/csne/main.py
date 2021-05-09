@@ -4,6 +4,7 @@
 # Contact: alexandru.mara@ugent.be, yoosof.mashayekhi@ugent.be
 # Date: 02/05/2020
 
+from __future__ import absolute_import
 import pickle
 import time
 import argparse

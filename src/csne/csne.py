@@ -19,10 +19,8 @@ from collections import defaultdict
 from os.path import join
 
 import numpy as np
-import pandas as pd
 import scipy.sparse as sparse
 from scipy.optimize import minimize
-from sklearn.metrics import roc_auc_score
 from tqdm import tqdm, trange
 import time
 
