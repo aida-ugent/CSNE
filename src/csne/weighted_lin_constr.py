@@ -42,7 +42,6 @@ class WeightLinConstr:
 
 
 class Uniform(WeightLinConstr):
-
     def __init__(self, A):
         # If adj matrix is not sparse, make it sparse
         if not issparse(A):
@@ -71,7 +70,7 @@ class Uniform(WeightLinConstr):
         return mat.sum() * self.__F
 
     def sqmat_sum_mult(self, mat):
-        return mat.sum() * self.__F**2
+        return mat.sum() * self.__F ** 2
 
     def get_row(self, i):
         return np.ones(self.__n) * self.__F
@@ -84,7 +83,6 @@ class Uniform(WeightLinConstr):
 
 
 class CommonNeigh(WeightLinConstr):
-
     def __init__(self, A):
         # If adj matrix is not sparse, make it sparse
         if not issparse(A):
@@ -97,7 +95,9 @@ class CommonNeigh(WeightLinConstr):
 
     @staticmethod
     def _compute_f(A):
-        F = A.dot(A.T)        # for dir networks A.dot(A) give in degree and A.dot(A.T) gives out degree
+        F = A.dot(
+            A.T
+        )  # for dir networks A.dot(A) give in degree and A.dot(A.T) gives out degree
         F.setdiag(0)
         F.eliminate_zeros()
         F.sort_indices()
@@ -127,13 +127,12 @@ class CommonNeigh(WeightLinConstr):
 
 
 class cpp(CommonNeigh):
-
     @staticmethod
     def _compute_f(A):
         """ Counts the number of ++ wedges in A. """
         # Compute matrix B as the 'mask'
         B = A.copy()
-        B.data = (B.data + 1)/2.0
+        B.data = (B.data + 1) / 2.0
         B.eliminate_zeros()
         # Compute pp wedges
         F = B.dot(B.T)
@@ -143,13 +142,12 @@ class cpp(CommonNeigh):
 
 
 class cmm(CommonNeigh):
-
     @staticmethod
     def _compute_f(A):
         """ Counts the number of -- wedges in A. """
         # Compute matrix B as the 'mask'
         B = A.copy()
-        B.data = np.abs((B.data - 1)/2.0)
+        B.data = np.abs((B.data - 1) / 2.0)
         B.eliminate_zeros()
         # Compute mm wedges
         F = B.dot(B.T)
@@ -159,7 +157,6 @@ class cmm(CommonNeigh):
 
 
 class cpm(CommonNeigh):
-
     @staticmethod
     def _compute_f(A):
         """ Counts the number of +- wedges in A. """
@@ -168,7 +165,7 @@ class cpm(CommonNeigh):
         B.data = np.abs(B.data)
         # Compute cn and subtract those which have the same sign, pp or mm. this leaves you with wedges pm.
         cn = B.dot(B.T)
-        F = (cn - A.dot(A.T))/2.0
+        F = (cn - A.dot(A.T)) / 2.0
         F.setdiag(0)
         F.eliminate_zeros()
         return F

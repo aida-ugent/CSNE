@@ -15,8 +15,7 @@ import time
 
 
 class MaxentCombined:
-
-    def __init__(self, A, mask, func, memory='quadratic', reg_val=0.9):
+    def __init__(self, A, mask, func, memory="quadratic", reg_val=0.9):
         """
         Initializes the maxent combined model
 
@@ -40,7 +39,7 @@ class MaxentCombined:
         self.__nfuncs = len(func)
         self.__memory = memory
         self.__mask = mask
-        self.__F = self._select_f(A, func)          # array with as many priors as __nfuncs
+        self.__F = self._select_f(A, func)  # array with as many priors as __nfuncs
         self.__x = None
         self.__cs = self._get_constraints(A)
 
@@ -53,13 +52,13 @@ class MaxentCombined:
 
     @staticmethod
     def _select(A, func):
-        if func == 'cpp':
+        if func == "cpp":
             return cpp(A)
 
-        elif func == 'cpm':
+        elif func == "cpm":
             return cpm(A)
 
-        elif func == 'cmm':
+        elif func == "cmm":
             return cmm(A)
 
         else:
@@ -115,9 +114,11 @@ class MaxentCombined:
         if self.__x is not None:
             return self._get_posterior()
         else:
-            raise AttributeError("Maxent Combined has not been fitted. Use <class>.fit()")
+            raise AttributeError(
+                "Maxent Combined has not been fitted. Use <class>.fit()"
+            )
 
-    def fit(self, optimizer='newton', lr=1.0, max_iter=100, tol=0.0001, verbose=False):
+    def fit(self, optimizer="newton", lr=1.0, max_iter=100, tol=0.0001, verbose=False):
         """
         Fits the Maxent Combined model.
 
@@ -143,15 +144,21 @@ class MaxentCombined:
         x = np.zeros(self.__2n + self.__nfuncs)
 
         # Compute
-        if optimizer == 'newton':
-            if self.__memory == 'quadratic':
-                self.__x = self._optimizer_newton_quadratic_sp(x, lr, max_iter, tol, verbose)
+        if optimizer == "newton":
+            if self.__memory == "quadratic":
+                self.__x = self._optimizer_newton_quadratic_sp(
+                    x, lr, max_iter, tol, verbose
+                )
             else:
-                raise ValueError('Incorrect memory constraint. Options are `quadratic` and `linear`')
+                raise ValueError(
+                    "Incorrect memory constraint. Options are `quadratic` and `linear`"
+                )
         else:
-            raise ValueError('Optimizer {:s} is not implemented.'.format(optimizer))
+            raise ValueError("Optimizer {:s} is not implemented.".format(optimizer))
 
-    def _optimizer_newton_quadratic_sp(self, x, alpha_init=1.0, max_iter=100, tol=0.001, verbose=False):
+    def _optimizer_newton_quadratic_sp(
+        self, x, alpha_init=1.0, max_iter=100, tol=0.001, verbose=False
+    ):
         """
         Computes teh MaxEnt prior. Uses hessian information o speed up convergence.
         """
@@ -169,7 +176,7 @@ class MaxentCombined:
         c_idx = self.__n + c_idx
 
         # Iterate
-        for i in trange(max_iter, desc='Fitting prior'):
+        for i in trange(max_iter, desc="Fitting prior"):
 
             # Reset alpha every few iterations
             if i % 10 == 0:
@@ -199,8 +206,10 @@ class MaxentCombined:
 
             # Show the norms of the gradient and objective
             if verbose:
-                #print(np.linalg.norm(grad))
-                tqdm.write("[iter {}] Gradient norm: {:.2f}".format(i, np.linalg.norm(grad)))
+                # print(np.linalg.norm(grad))
+                tqdm.write(
+                    "[iter {}] Gradient norm: {:.2f}".format(i, np.linalg.norm(grad))
+                )
                 tqdm.write("[iter {}] Objective: {:.2f}".format(i, obj))
 
             if np.linalg.norm(grad, np.inf) < tol:
@@ -213,8 +222,8 @@ class MaxentCombined:
     def _get_sums_sp(self, P, f_pow=False):
         """ Returns the sums over cols and rows of P as well as sum over all elems of P * F in a single array. """
         aux = np.zeros(self.__2n + self.__nfuncs)
-        aux[:self.__n] = P.sum(axis=1).T.A.ravel()
-        aux[self.__n:self.__2n] = P.sum(axis=0).A.ravel()
+        aux[: self.__n] = P.sum(axis=1).T.A.ravel()
+        aux[self.__n : self.__2n] = P.sum(axis=0).A.ravel()
         if f_pow:
             for fi in range(self.__nfuncs):
                 aux[self.__2n + fi] = np.dot(self.__F[fi].maskdF2, P.data)
@@ -225,7 +234,7 @@ class MaxentCombined:
 
     def _get_posterior(self):
         """ Returns the full posterior probability matrix computed from the lambdas. """
-        P = np.array([self.__x[:self.__n]]).T + self.__x[self.__n:self.__2n]
+        P = np.array([self.__x[: self.__n]]).T + self.__x[self.__n : self.__2n]
         for fi in range(self.__nfuncs):
             P += self.__F[fi].sc_mult(self.__x[self.__2n + fi])
         P = np.exp(P)
@@ -238,12 +247,16 @@ class MaxentCombined:
         if self.__x is not None:
             p_row = self.__x[row_id] + np.array(self.__x[self.__n + np.array(col_ids)])
             for fi in range(self.__nfuncs):
-                p_row += self.__F[fi].get_row(row_id)[col_ids] * self.__x[self.__2n + fi]
+                p_row += (
+                    self.__F[fi].get_row(row_id)[col_ids] * self.__x[self.__2n + fi]
+                )
             p = np.exp(p_row)
             p = p / (1 + p)
             return p * np.invert(col_ids == row_id)
         else:
-            raise AttributeError("Maxent Combined has not been fitted. Use <class>.fit()")
+            raise AttributeError(
+                "Maxent Combined has not been fitted. Use <class>.fit()"
+            )
 
     def _get_elem_posterior(self, src, dst):
         """ Returns the probability of linking a (src, dst) pair. """
@@ -259,11 +272,11 @@ class MaxentCombined:
     def _get_constraints(self, A):
         """ Returns the initial constraints for rows, cols and F matrices as computed from the Adj matrix."""
         B = A.copy()
-        B.data = (B.data + 1)/2.0
+        B.data = (B.data + 1) / 2.0
         B.eliminate_zeros()
         aux = np.zeros(self.__2n + self.__nfuncs)
-        aux[:self.__n] = B.sum(axis=1).T.A.ravel()          # Row sums
-        aux[self.__n:self.__2n] = B.sum(axis=0).A.ravel()   # Col sums
+        aux[: self.__n] = B.sum(axis=1).T.A.ravel()  # Row sums
+        aux[self.__n : self.__2n] = B.sum(axis=0).A.ravel()  # Col sums
         for fi in range(self.__nfuncs):
             aux[self.__2n + fi] = self.__F[fi].mat_sum_mult(B)  # Full sum
         return aux
