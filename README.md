@@ -1,5 +1,7 @@
 # CSNE: Conditional Signed Network Embedding
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 This repository contains the source code, installation and use instructions for the method presented in the paper: 
 *CSNE: Conditional Signed Network Embedding*. Instructions for replicating 
 the experiments in the paper are also given.
